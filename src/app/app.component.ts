@@ -1,12 +1,25 @@
+// src/app/app.component.ts
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { CartService } from './services/cart.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  // Importante para Angular 15+: importar RouterOutlet en el componente
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive]
 })
 export class AppComponent {
-  title = 'catalogo-f';
+  cartItemCount$: Observable<number>;
+
+  constructor(private cartService: CartService) {
+    this.cartItemCount$ = this.cartService.cart$.pipe(
+      map(items => items.reduce((count, item) => count + item.quantity, 0))
+    );
+  }
 }

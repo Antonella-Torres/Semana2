@@ -1,0 +1,58 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "Smartphone XYZ Pro",
+            "description": "Un potente smartphone con cámara de alta resolución, batería de larga duración y pantalla AMOLED de 6.5 pulgadas. Ideal para fotografía y gaming.",
+            "price": 699.99,
+            "imageUrl": "https://via.placeholder.com/300x300.png?text=Smartphone",
+            "category": "Electrónica",
+            "stock": 25
+        },
+        {
+            "id": 2,
+            "name": "Laptop UltraSlim",
+            "description": "Portátil ultraligero con procesador de última generación, 16GB de RAM y disco SSD de 512GB. Perfecto para trabajo y estudios.",
+            "price": 1299.99,
+            "imageUrl": "https://via.placeholder.com/300x300.png?text=Laptop",
+            "category": "Electrónica",
+            "stock": 10
+        },
+        {
+            "id": 3,
+            "name": "Auriculares Noise Cancelling",
+            "description": "Auriculares inalámbricos con cancelación de ruido activa, hasta 30 horas de batería y sonido premium. Ideal para viajes y trabajo.",
+            "price": 249.99,
+            "imageUrl": "https://via.placeholder.com/300x300.png?text=Auriculares",
+            "category": "Accesorios",
+            "stock": 30
+        },
+        {
+            "id": 4,
+            "name": "Smartwatch Fitness",
+            "description": "Reloj inteligente con seguimiento de actividad física, monitorización del sueño, resistente al agua y con batería de hasta 7 días.",
+            "price": 199.99,
+            "imageUrl": "https://via.placeholder.com/300x300.png?text=Smartwatch",
+            "category": "Accesorios",
+            "stock": 15
+        },
+        {
+            "id": 5,
+            "name": "Tablet Art Pro",
+            "description": "Tablet de 10.9 pulgadas con pantalla Retina, compatible con lápiz digital y teclado. Perfecta para creativos y estudiantes.",
+            "price": 499.99,
+            "imageUrl": "https://via.placeholder.com/300x300.png?text=Tablet",
+            "category": "Electrónica",
+            "stock": 8
+        },
+        {
+            "id": 6,
+            "name": "Cámara DSLR 4K",
+            "description": "Cámara profesional con sensor de 24MP, grabación en 4K, estabilizador de imagen y conectividad WiFi. Para fotógrafos exigentes.",
+            "price": 899.99,
+            "imageUrl": "https://via.placeholder.com/300x300.png?text=Cámara",
+            "category": "Fotografía",
+            "stock": 5
+        }
+    ]
+}
