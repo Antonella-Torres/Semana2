@@ -1,10 +1,16 @@
 // src/app/components/checkout-form/checkout-form.component.ts
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
+import { AsyncPipe, CurrencyPipe, NgClass, NgForOf, NgIf } from '@angular/common';
 
 interface CartItem {
   product: Product;
@@ -13,16 +19,17 @@ interface CartItem {
 
 @Component({
   selector: 'app-checkout-form',
-  imports: [],
+  imports: [NgIf, ReactiveFormsModule, NgClass, NgForOf, AsyncPipe, CurrencyPipe],
+  standalone: true,
   templateUrl: './checkout-form.component.html',
-  styleUrls: ['./checkout-form.component.css']
+  styleUrls: ['./checkout-form.component.css'],
 })
 export class CheckoutFormComponent implements OnInit {
   cartItems$: Observable<CartItem[]>;
   checkoutForm!: FormGroup;
   submitted = false;
   orderComplete = false;
-  
+
   constructor(
     private fb: FormBuilder,
     private cartService: CartService,
@@ -30,11 +37,11 @@ export class CheckoutFormComponent implements OnInit {
   ) {
     this.cartItems$ = this.cartService.cart$;
   }
-  
+
   ngOnInit(): void {
     this.initForm();
   }
-  
+
   initForm(): void {
     this.checkoutForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
@@ -44,39 +51,42 @@ export class CheckoutFormComponent implements OnInit {
       city: ['', Validators.required],
       postalCode: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
-      paymentMethod: ['credit', Validators.required]
+      paymentMethod: ['credit', Validators.required],
     });
   }
-  
-  get f() { return this.checkoutForm.controls; }
-  
+
+  get f() {
+    return this.checkoutForm.controls;
+  }
+
   getTotal(): Observable<number> {
-    return new Observable<number>(observer => {
-      this.cartItems$.subscribe(items => {
+    return new Observable<number>((observer) => {
+      this.cartItems$.subscribe((items) => {
         const total = items.reduce(
-          (sum, item) => sum + (item.product.price * item.quantity), 0
+          (sum, item) => sum + item.product.price * item.quantity,
+          0
         );
         observer.next(total);
         observer.complete();
       });
     });
   }
-  
+
   updateQuantity(productId: number, quantity: number): void {
     this.cartService.updateQuantity(productId, quantity);
   }
-  
+
   removeItem(productId: number): void {
     this.cartService.removeFromCart(productId);
   }
-  
+
   onSubmit(): void {
     this.submitted = true;
-    
+
     if (this.checkoutForm.invalid) {
       return;
     }
-    
+
     // Simular procesamiento de pedido
     setTimeout(() => {
       console.log('Order data:', this.checkoutForm.value);
@@ -84,7 +94,7 @@ export class CheckoutFormComponent implements OnInit {
       this.cartService.clearCart();
     }, 1500);
   }
-  
+
   continueShopping(): void {
     this.router.navigate(['/products']);
   }

@@ -1,60 +1,89 @@
 <!-- src/app/components/product-detail/product-detail.component.html -->
 <div *ngIf="isLoading" class="text-center py-5">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Cargando...</span>
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!isLoading && !errorMessage && product">
+  <div class="row">
+    <div class="col-md-6">
+      <img [src]="product.imageUrl" [alt]="product.name" class="img-fluid" />
+    </div>
+
+    <div class="col-md-6">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/products">Productos</a>
+          </li>
+          <li class="breadcrumb-item active">{{ product.name }}</li>
+        </ol>
+      </nav>
+
+      <h1>{{ product.name }}</h1>
+      <p class="badge bg-secondary">{{ product.category }}</p>
+      <p class="fs-2 fw-bold text-primary">
+        {{ product.price | currency : "EUR" }}
+      </p>
+
+      <p class="my-4">{{ product.description }}</p>
+
+      <div class="d-flex align-items-center mb-4">
+        <span class="me-3">Cantidad:</span>
+        <div class="input-group" style="width: 150px">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="decrementQuantity()"
+          >
+            -
+          </button>
+          <input
+            type="number"
+            class="form-control text-center"
+            [value]="quantity"
+            readonly
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="incrementQuantity()"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="product.stock > 0" class="text-success mb-3">
+        <i class="fa fa-check-circle"></i> En stock ({{
+          product.stock
+        }}
+        disponibles)
+      </div>
+
+      <div *ngIf="product.stock <= 0" class="text-danger mb-3">
+        <i class="fa fa-times-circle"></i> Fuera de stock
+      </div>
+
+      <button
+        class="btn btn-primary btn-lg w-100"
+        (click)="addToCart()"
+        [disabled]="product.stock <= 0"
+      >
+        <i class="fa fa-shopping-cart"></i> Añadir al carrito
+      </button>
     </div>
   </div>
-  
-  <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
-  </div>
-  
-  <div *ngIf="!isLoading && !errorMessage && product">
-    <div class="row">
-      <div class="col-md-6">
-        <img [src]="product.imageUrl" [alt]="product.name" class="img-fluid">
-      </div>
-      
-      <div class="col-md-6">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/products">Productos</a></li>
-            <li class="breadcrumb-item active">{{ product.name }}</li>
-          </ol>
-        </nav>
-        
-        <h1>{{ product.name }}</h1>
-        <p class="badge bg-secondary">{{ product.category }}</p>
-        <p class="fs-2 fw-bold text-primary">{{ product.price | currency:'EUR' }}</p>
-        
-        <p class="my-4">{{ product.description }}</p>
-        
-        <div class="d-flex align-items-center mb-4">
-          <span class="me-3">Cantidad:</span>
-          <div class="input-group" style="width: 150px;">
-            <button class="btn btn-outline-secondary" type="button" (click)="decrementQuantity()">-</button>
-            <input type="number" class="form-control text-center" [value]="quantity" readonly>
-            <button class="btn btn-outline-secondary" type="button" (click)="incrementQuantity()">+</button>
-          </div>
-        </div>
-        
-        <div *ngIf="product.stock > 0" class="text-success mb-3">
-          <i class="fa fa-check-circle"></i> En stock ({{ product.stock }} disponibles)
-        </div>
-        
-        <div *ngIf="product.stock <= 0" class="text-danger mb-3">
-          <i class="fa fa-times-circle"></i> Fuera de stock
-        </div>
-        
-        <button class="btn btn-primary btn-lg w-100" 
-                (click)="addToCart()" 
-                [disabled]="product.stock <= 0">
-          <i class="fa fa-shopping-cart"></i> Añadir al carrito
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  <div *ngIf="!isLoading && !errorMessage && !product" class="alert alert-warning">
-    Producto no encontrado. <a routerLink="/products">Ver todos los productos</a>
-  </div>
+</div>
+
+<div
+  *ngIf="!isLoading && !errorMessage && !product"
+  class="alert alert-warning"
+>
+  Producto no encontrado. <a routerLink="/products">Ver todos los productos</a>
+</div>

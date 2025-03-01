@@ -1,9 +1,10 @@
 
 // src/app/components/product-filters/product-filters.component.ts
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Product } from '../../models/product.model';
 import { debounceTime } from 'rxjs/operators';
+import { NgForOf } from '@angular/common';
 
 export interface ProductFilters {
   name: string;
@@ -14,7 +15,8 @@ export interface ProductFilters {
 
 @Component({
   selector: 'app-product-filters',
-  imports: [],
+  standalone: true,
+  imports: [ReactiveFormsModule, NgForOf],
   templateUrl: './product-filters.component.html',
   styleUrls: ['./product-filters.component.css']
 })

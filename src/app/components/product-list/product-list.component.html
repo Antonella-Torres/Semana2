@@ -3,71 +3,100 @@
   <div class="col-lg-3 mb-4">
     <!-- Panel de filtros para pantallas grandes -->
     <div class="d-none d-lg-block">
-      <app-product-filters 
-        [products]="allProducts" 
-        (filtersChanged)="applyFilters($event)">
+      <app-product-filters
+        [products]="allProducts"
+        (filtersChanged)="applyFilters($event)"
+      >
       </app-product-filters>
     </div>
-    
+
     <!-- Botón para mostrar/ocultar filtros en pantallas pequeñas -->
     <div class="d-lg-none mb-3">
-      <button class="btn btn-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
+      <button
+        class="btn btn-primary w-100"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#filterCollapse"
+      >
         <i class="fas fa-filter me-2"></i> Mostrar filtros
       </button>
       <div class="collapse mt-3" id="filterCollapse">
-        <app-product-filters 
-          [products]="allProducts" 
-          (filtersChanged)="applyFilters($event)">
+        <app-product-filters
+          [products]="allProducts"
+          (filtersChanged)="applyFilters($event)"
+        >
         </app-product-filters>
       </div>
     </div>
   </div>
-  
+
   <div class="col-lg-9">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="m-0">Nuestros Productos</h2>
-      <div class="badge bg-primary">{{ filteredProducts.length }} productos</div>
+      <div class="badge bg-primary">
+        {{ filteredProducts.length }} productos
+      </div>
     </div>
-    
+
     <div *ngIf="isLoading" class="text-center py-5">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Cargando...</span>
       </div>
       <p class="mt-2 text-muted">Cargando productos...</p>
     </div>
-    
+
     <div *ngIf="errorMessage" class="alert alert-danger">
       <i class="fas fa-exclamation-circle me-2"></i> {{ errorMessage }}
     </div>
-    
+
     <div *ngIf="!isLoading && !errorMessage">
       <div *ngIf="filteredProducts.length === 0" class="alert alert-info">
-        <i class="fas fa-info-circle me-2"></i> No se encontraron productos que coincidan con los filtros seleccionados.
+        <i class="fas fa-info-circle me-2"></i> No se encontraron productos que
+        coincidan con los filtros seleccionados.
       </div>
-      
+
       <!-- Vista de cuadrícula para mostrar productos -->
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <div class="col" *ngFor="let product of filteredProducts">
           <div class="card h-100">
             <div class="position-relative">
-              <img [src]="product.imageUrl" class="card-img-top" [alt]="product.name" style="height: 200px; object-fit: cover;">
-              <span class="position-absolute top-0 end-0 m-2 badge" 
-                    [ngClass]="product.stock > 0 ? 'bg-success' : 'bg-danger'">
-                {{ product.stock > 0 ? 'Disponible' : 'Agotado' }}
+              <img
+                [src]="product.imageUrl"
+                class="card-img-top"
+                [alt]="product.name"
+                style="height: 200px; object-fit: cover"
+              />
+              <span
+                class="position-absolute top-0 end-0 m-2 badge"
+                [ngClass]="product.stock > 0 ? 'bg-success' : 'bg-danger'"
+              >
+                {{ product.stock > 0 ? "Disponible" : "Agotado" }}
               </span>
             </div>
             <div class="card-body">
               <h5 class="card-title text-truncate">{{ product.name }}</h5>
               <p class="card-text text-muted mb-1">{{ product.category }}</p>
-              <p class="card-text" style="height: 48px; overflow: hidden;">{{ product.description | slice:0:80 }}...</p>
-              <p class="card-text fs-5 fw-bold text-primary mt-2">{{ product.price | currency:'EUR' }}</p>
+              <p class="card-text" style="height: 48px; overflow: hidden">
+                {{ product.description | slice : 0 : 80 }}...
+              </p>
+              <p class="card-text fs-5 fw-bold text-primary mt-2">
+                {{ product.price | currency : "EUR" }}
+              </p>
             </div>
-            <div class="card-footer bg-transparent d-flex justify-content-between">
-              <button class="btn btn-outline-primary flex-grow-1 me-2" [routerLink]="['/products', product.id]">
+            <div
+              class="card-footer bg-transparent d-flex justify-content-between"
+            >
+              <button
+                class="btn btn-outline-primary flex-grow-1 me-2"
+                [routerLink]="['/products', product.id]"
+              >
                 <i class="fas fa-eye me-1"></i> Ver
               </button>
-              <button class="btn btn-primary flex-grow-1" (click)="addToCart(product)" 
-                      [disabled]="product.stock <= 0">
+              <button
+                class="btn btn-primary flex-grow-1"
+                (click)="addToCart(product)"
+                [disabled]="product.stock <= 0"
+              >
                 <i class="fas fa-cart-plus me-1"></i> Añadir
               </button>
             </div>

@@ -1,5 +1,5 @@
 // src/app/services/product.service.ts
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
@@ -8,10 +8,10 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-  private productsUrl = 'assets/data/products.json'; // Para usar JSON local
+  private productsUrl = '/data/products.json'; // Para usar JSON local
   // Alternativa: private productsUrl = 'http://localhost:3000/products'; // Para JSON Server
 
-  constructor(private http: HttpClient) { }
+  private readonly http: HttpClient = inject(HttpClient);
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.productsUrl);

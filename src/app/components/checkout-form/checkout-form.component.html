@@ -1,196 +1,351 @@
 <!-- src/app/components/checkout-form/checkout-form.component.html -->
 <div *ngIf="orderComplete" class="text-center py-5 fade-in">
-    <div class="card p-5 mb-4 border-0 shadow">
-      <div class="mb-4">
-        <div class="circle-check mx-auto mb-3">
-          <i class="fas fa-check"></i>
-        </div>
-        <h2 class="mb-3">¡Pedido completado con éxito!</h2>
-        <p class="mb-4 text-muted">Gracias por tu compra. Recibirás un correo con los detalles de tu pedido.</p>
-        <button class="btn btn-primary btn-lg" (click)="continueShopping()">
-          <i class="fas fa-shopping-bag me-2"></i>Continuar comprando
-        </button>
+  <div class="card p-5 mb-4 border-0 shadow">
+    <div class="mb-4">
+      <div class="circle-check mx-auto mb-3">
+        <i class="fas fa-check"></i>
       </div>
+      <h2 class="mb-3">¡Pedido completado con éxito!</h2>
+      <p class="mb-4 text-muted">
+        Gracias por tu compra. Recibirás un correo con los detalles de tu
+        pedido.
+      </p>
+      <button class="btn btn-primary btn-lg" (click)="continueShopping()">
+        <i class="fas fa-shopping-bag me-2"></i>Continuar comprando
+      </button>
     </div>
   </div>
-  
-  <div *ngIf="!orderComplete" class="fade-in">
-    <h2 class="mb-4">Finalizar compra</h2>
-    
-    <div class="row">
-      <div class="col-lg-8 mb-4">
-        <div class="card mb-4 shadow-sm">
-          <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Información de envío</h5>
-          </div>
-          <div class="card-body">
-            <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="firstName" class="form-label">Nombre</label>
-                  <input type="text" id="firstName" formControlName="firstName" class="form-control" 
-                         [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }">
-                  <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
-                    <div *ngIf="f['firstName'].errors['required']">El nombre es obligatorio</div>
-                    <div *ngIf="f['firstName'].errors['minlength']">El nombre debe tener al menos 2 caracteres</div>
+</div>
+
+<div *ngIf="!orderComplete" class="fade-in">
+  <h2 class="mb-4">Finalizar compra</h2>
+
+  <div class="row">
+    <div class="col-lg-8 mb-4">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Información de envío</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName" class="form-label">Nombre</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  formControlName="firstName"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['firstName'].errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f['firstName'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['firstName'].errors['required']">
+                    El nombre es obligatorio
                   </div>
-                </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="lastName" class="form-label">Apellidos</label>
-                  <input type="text" id="lastName" formControlName="lastName" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }">
-                  <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
-                    <div *ngIf="f['lastName'].errors['required']">Los apellidos son obligatorios</div>
-                    <div *ngIf="f['lastName'].errors['minlength']">Los apellidos deben tener al menos 2 caracteres</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                  <input type="email" id="email" formControlName="email" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
-                  <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                    <div *ngIf="f['email'].errors['required']">El email es obligatorio</div>
-                    <div *ngIf="f['email'].errors['email']">Introduce un email válido</div>
+                  <div *ngIf="f['firstName'].errors['minlength']">
+                    El nombre debe tener al menos 2 caracteres
                   </div>
                 </div>
               </div>
-              
-              <div class="mb-3">
-                <label for="address" class="form-label">Dirección</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="fas fa-home"></i></span>
-                  <input type="text" id="address" formControlName="address" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f['address'].errors }">
-                  <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
-                    <div *ngIf="f['address'].errors['required']">La dirección es obligatoria</div>
+
+              <div class="col-md-6 mb-3">
+                <label for="lastName" class="form-label">Apellidos</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  formControlName="lastName"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['lastName'].errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f['lastName'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['lastName'].errors['required']">
+                    Los apellidos son obligatorios
+                  </div>
+                  <div *ngIf="f['lastName'].errors['minlength']">
+                    Los apellidos deben tener al menos 2 caracteres
                   </div>
                 </div>
               </div>
-              
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="city" class="form-label">Ciudad</label>
-                  <input type="text" id="city" formControlName="city" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
-                  <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
-                    <div *ngIf="f['city'].errors['required']">La ciudad es obligatoria</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <div class="input-group">
+                <span class="input-group-text"
+                  ><i class="fas fa-envelope"></i
+                ></span>
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                />
+                <div
+                  *ngIf="submitted && f['email'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['email'].errors['required']">
+                    El email es obligatorio
                   </div>
-                </div>
-                
-                <div class="col-md-6 mb-3">
-                  <label for="postalCode" class="form-label">Código Postal</label>
-                  <input type="text" id="postalCode" formControlName="postalCode" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f['postalCode'].errors }">
-                  <div *ngIf="submitted && f['postalCode'].errors" class="invalid-feedback">
-                    <div *ngIf="f['postalCode'].errors['required']">El código postal es obligatorio</div>
-                    <div *ngIf="f['postalCode'].errors['pattern']">El código postal debe contener 5 dígitos</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="mb-3">
-                <label for="phone" class="form-label">Teléfono</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                  <input type="tel" id="phone" formControlName="phone" class="form-control"
-                         [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }">
-                  <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
-                    <div *ngIf="f['phone'].errors['required']">El teléfono es obligatorio</div>
-                    <div *ngIf="f['phone'].errors['pattern']">El teléfono debe contener 9 dígitos</div>
+                  <div *ngIf="f['email'].errors['email']">
+                    Introduce un email válido
                   </div>
                 </div>
               </div>
-              
-              <div class="mb-4">
-                <label class="form-label">Método de Pago</label>
-                <div class="d-flex flex-wrap gap-3">
-                  <div class="form-check payment-option" *ngFor="let method of ['credit', 'paypal', 'transfer']">
-                    <input class="form-check-input" type="radio" 
-                           [value]="method" formControlName="paymentMethod" 
-                           [id]="'payment-' + method">
-                    <label class="form-check-label payment-label" [for]="'payment-' + method">
-                      <i class="payment-icon" [ngClass]="{
+            </div>
+
+            <div class="mb-3">
+              <label for="address" class="form-label">Dirección</label>
+              <div class="input-group">
+                <span class="input-group-text"
+                  ><i class="fas fa-home"></i
+                ></span>
+                <input
+                  type="text"
+                  id="address"
+                  formControlName="address"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
+                />
+                <div
+                  *ngIf="submitted && f['address'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['address'].errors['required']">
+                    La dirección es obligatoria
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="city" class="form-label">Ciudad</label>
+                <input
+                  type="text"
+                  id="city"
+                  formControlName="city"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['city'].errors }"
+                />
+                <div
+                  *ngIf="submitted && f['city'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['city'].errors['required']">
+                    La ciudad es obligatoria
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="postalCode" class="form-label">Código Postal</label>
+                <input
+                  type="text"
+                  id="postalCode"
+                  formControlName="postalCode"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid': submitted && f['postalCode'].errors
+                  }"
+                />
+                <div
+                  *ngIf="submitted && f['postalCode'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['postalCode'].errors['required']">
+                    El código postal es obligatorio
+                  </div>
+                  <div *ngIf="f['postalCode'].errors['pattern']">
+                    El código postal debe contener 5 dígitos
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="phone" class="form-label">Teléfono</label>
+              <div class="input-group">
+                <span class="input-group-text"
+                  ><i class="fas fa-phone"></i
+                ></span>
+                <input
+                  type="tel"
+                  id="phone"
+                  formControlName="phone"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f['phone'].errors }"
+                />
+                <div
+                  *ngIf="submitted && f['phone'].errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f['phone'].errors['required']">
+                    El teléfono es obligatorio
+                  </div>
+                  <div *ngIf="f['phone'].errors['pattern']">
+                    El teléfono debe contener 9 dígitos
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label">Método de Pago</label>
+              <div class="d-flex flex-wrap gap-3">
+                <div
+                  class="form-check payment-option"
+                  *ngFor="let method of ['credit', 'paypal', 'transfer']"
+                >
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    [value]="method"
+                    formControlName="paymentMethod"
+                    [id]="'payment-' + method"
+                  />
+                  <label
+                    class="form-check-label payment-label"
+                    [for]="'payment-' + method"
+                  >
+                    <i
+                      class="payment-icon"
+                      [ngClass]="{
                         'fab fa-cc-visa': method === 'credit',
                         'fab fa-paypal': method === 'paypal',
                         'fas fa-university': method === 'transfer'
-                      }"></i>
-                      <span>{{ method === 'credit' ? 'Tarjeta de Crédito' : 
-                              method === 'paypal' ? 'PayPal' : 'Transferencia' }}</span>
-                    </label>
-                  </div>
+                      }"
+                    ></i>
+                    <span>{{
+                      method === "credit"
+                        ? "Tarjeta de Crédito"
+                        : method === "paypal"
+                        ? "PayPal"
+                        : "Transferencia"
+                    }}</span>
+                  </label>
                 </div>
               </div>
-              
-              <div class="d-grid">
-                <button type="submit" class="btn btn-primary btn-lg">
-                  <i class="fas fa-lock me-2"></i>Completar Compra
-                </button>
-              </div>
-            </form>
-          </div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <i class="fas fa-lock me-2"></i>Completar Compra
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-      
-      <div class="col-lg-4">
-        <div class="card shadow-sm mb-4">
-          <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Resumen del Pedido</h5>
-          </div>
-          <div class="card-body p-0">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item p-3" *ngFor="let item of cartItems$ | async">
-                <div class="d-flex">
-                  <img [src]="item.product.imageUrl" [alt]="item.product.name" 
-                       class="rounded me-3" style="width: 60px; height: 60px; object-fit: cover;">
-                  <div class="flex-grow-1">
-                    <h6 class="mb-0">{{ item.product.name }}</h6>
-                    <small class="text-muted">{{ item.product.category }}</small>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                      <div class="input-group input-group-sm" style="width: 100px;">
-                        <button class="btn btn-outline-secondary" type="button" 
-                                (click)="updateQuantity(item.product.id, item.quantity - 1)"
-                                [disabled]="item.quantity <= 1">-</button>
-                        <input type="text" class="form-control text-center" [value]="item.quantity" readonly>
-                        <button class="btn btn-outline-secondary" type="button" 
-                                (click)="updateQuantity(item.product.id, item.quantity + 1)">+</button>
-                      </div>
-                      <span class="fs-6 fw-bold">{{ item.product.price * item.quantity | currency:'EUR' }}</span>
-                    </div>
-                  </div>
-                  <button class="btn btn-sm text-danger" (click)="removeItem(item.product.id)">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </li>
-              <li class="list-group-item p-3 bg-light">
-                <div class="d-flex justify-content-between">
-                  <span>Subtotal:</span>
-                  <span>{{ getTotal() | async | currency:'EUR' }}</span>
-                </div>
-                <div class="d-flex justify-content-between mt-2">
-                  <span>Envío:</span>
-                  <span>{{ 5 | currency:'EUR' }}</span>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between fw-bold">
-                  <span>Total:</span>
-                  <span class="fs-5">{{ (getTotal() | async) + 5 | currency:'EUR' }}</span>
-                </div>
-              </li>
-            </ul>
-          </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Resumen del Pedido</h5>
         </div>
-        
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h6><i class="fas fa-shield-alt text-success me-2"></i>Compra Segura</h6>
-            <p class="mb-0 small text-muted">Todos los datos están protegidos con encriptación SSL. Tus datos nunca serán compartidos.</p>
-          </div>
+        <div class="card-body p-0">
+          <ul class="list-group list-group-flush">
+            <li
+              class="list-group-item p-3"
+              *ngFor="let item of cartItems$ | async"
+            >
+              <div class="d-flex">
+                <img
+                  [src]="item.product.imageUrl"
+                  [alt]="item.product.name"
+                  class="rounded me-3"
+                  style="width: 60px; height: 60px; object-fit: cover"
+                />
+                <div class="flex-grow-1">
+                  <h6 class="mb-0">{{ item.product.name }}</h6>
+                  <small class="text-muted">{{ item.product.category }}</small>
+                  <div
+                    class="d-flex justify-content-between align-items-center mt-2"
+                  >
+                    <div
+                      class="input-group input-group-sm"
+                      style="width: 100px"
+                    >
+                      <button
+                        class="btn btn-outline-secondary"
+                        type="button"
+                        (click)="
+                          updateQuantity(item.product.id, item.quantity - 1)
+                        "
+                        [disabled]="item.quantity <= 1"
+                      >
+                        -
+                      </button>
+                      <input
+                        type="text"
+                        class="form-control text-center"
+                        [value]="item.quantity"
+                        readonly
+                      />
+                      <button
+                        class="btn btn-outline-secondary"
+                        type="button"
+                        (click)="
+                          updateQuantity(item.product.id, item.quantity + 1)
+                        "
+                      >
+                        +
+                      </button>
+                    </div>
+                    <span class="fs-6 fw-bold">{{
+                      item.product.price * item.quantity | currency : "EUR"
+                    }}</span>
+                  </div>
+                </div>
+                <button
+                  class="btn btn-sm text-danger"
+                  (click)="removeItem(item.product.id)"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </li>
+            <li class="list-group-item p-3 bg-light">
+              <div class="d-flex justify-content-between">
+                <span>Subtotal:</span>
+                <span>{{ getTotal() | async | currency : "EUR" }}</span>
+              </div>
+              <div class="d-flex justify-content-between mt-2">
+                <span>Envío:</span>
+                <span>{{ 5 | currency : "EUR" }}</span>
+              </div>
+              <hr />
+              <div class="d-flex justify-content-between fw-bold">
+                <span>Total:</span>
+                <span class="fs-5">{{
+                  getTotal() | async | currency : "EUR"
+                }}</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h6>
+            <i class="fas fa-shield-alt text-success me-2"></i>Compra Segura
+          </h6>
+          <p class="mb-0 small text-muted">
+            Todos los datos están protegidos con encriptación SSL. Tus datos
+            nunca serán compartidos.
+          </p>
         </div>
       </div>
     </div>
